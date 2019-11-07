@@ -11,18 +11,8 @@ addons:
       - python-pygments
       # LaTeX
       - texlive-full
-      - texlive-extra-utils
-      - texlive-generic-recommended
-      - texlive-latex-extra
-      - texlive-latex-recommended
-      - texlive-fonts-recommended
-      - texlive-science
-      - texlive-publishers
-      - texlive-lang-european
       # Debug
       - tree
-      # For git latexdiff
-      - latexdiff
       # Image processing
       - inkscape
 env:
@@ -31,6 +21,7 @@ env:
     - GRAVIS="https://raw.githubusercontent.com/DanySK/Gravis-CI/master/"
 install: true
 script: ./gradlew buildLatex
+after_failure: tree
 before_deploy:
   - git config --local user.name "Danilo Pianini"
   - git config --local user.email "danilo.pianini@unibo.it"
