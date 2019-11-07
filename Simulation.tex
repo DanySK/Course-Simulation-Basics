@@ -506,7 +506,7 @@ From \cite{SlepoyJPC2008}
 
 \newcommand{\saperesimsize}[2]{
     \IfFileExists{#1.yml}{}{
-        \write18{curl https://raw.githubusercontent.com/AlchemistSimulator/SAPERE-incarnation-tutorial/master/src/main/yaml/#1.yml --output #1.yml}
+        \immediate\write18{curl https://raw.githubusercontent.com/AlchemistSimulator/SAPERE-incarnation-tutorial/master/src/main/yaml/#1.yml --output #1.yml}
     }
     \inputminted[fontsize=#2,linenos=true,breaklines=true, frame=single]{yaml}{#1.yml}
 }
