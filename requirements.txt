@@ -1,3 +1,4 @@
 latex-beamer
 minted
 python-pygments
+texlive-lang-italian
