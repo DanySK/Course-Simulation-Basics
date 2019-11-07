@@ -1,5 +1,5 @@
 official-repo: &official-repo
-  DanySK/Template-LaTeX-CI
+  DanySK/Course-Simulation-Basics
 language: java
 addons:
   apt:
@@ -44,7 +44,7 @@ cache:
 deploy:
   - provider: releases
     api_key:
-      secure: NMxb33l3KDAVQ+2cTbE1HQA9J54ljry4Q6+yZiFPYAtPgAihYbf29q+o/4bfNh1YbatDFf9lbPwWCT7JmFPa/7IbvZjFr6UOHr+nSybOS96IrbujTfF7yvbzed4SfwgiZX1ufLuluNcb2TU1dmsBHthVRCw+eCnKZN9B5DWvGz2g3PKLHAp5RSWsu/BsE+TbIQSiwdG7p/v/Ag5P8BIQlPviCPEllIyzMcMWrdctYRMJuoRro3U+paq3C3Qw8RWzb7cDVKkyIThsh0iTLMNkU4gSQZTIcaS8zG+e5yo/uFBycGXfsh4KYdGkTNdSif17Hi4jK8PxgjHzQUbw9dhSFqzhu6D+2bnzdcFKd3b8gtgFpf5r8JrTBwDx4B01YaaGdM90uEOI3mkgTTh2ycDM2zYkk3od9nEsRS9tlpUPcK0cNl++oPMHIueM/RonRNo8kPI70AMKShN6wg+IJjdHZimeAaMysQg4Scqolb1Wh/cd+yqu2H5l+h90pRt6qI0+0wqGZvQ950UBDTjhSuo+wSkvYyc/ZTrf50kdWBfn5N8wayDDnMA6qgFhgr6pHbFJY3arv4FTOPTvKjGQfrhFpIwHYuaVCTzrSfTTDCTElc2vVlDePbq4f4kfqvmN/SMTmHCSIdjSMFjB9ft5Mptd54C8qz90Zi3NhwNzUfxDZfs=
+      secure: "L2P6A4W0CPFY2wDux0j0b+VHsP8MoZ7MY84n+tcTSsnBmxTSufs+2MBq7ophM4eLkk1Ug4y5ab4CgegRd0vs4FbCkGqp7viBNstX+uHak+0fDxRp7+j4ySmY+sDODY0tW79lYvKYHF4AalJ6j6d9Bh4PHEb3XOlCQV3VzZlCQJ6o5TXR3HCxXu8cgAxDbi8/KUYnSuBMRJN17+jm3FkhFEGYd4XacpCpZkKY9g/QcA38CgBH9CZLEEeQ5Xux9XovLkbMFn8a/jZW7RVddMkRIunG/hpG5PDMWYq7sQxGDDLX1DODu1VRNVVGiy3MC+uwhqgeEIUT76jjOVDsGL2/obYMN+3EIOK6ltBrG9ZOa4yrgmudV75BFYA/Vsq6UC5nxdC4507nXY/d1G/wQY0Kw6hezJNlYrmxKzaCnFbbDIYYtZl+K0zzXaRMN7RaQk8m24wS+qR5FpLcS6kG7r/TkRpqz+5qXUSTqcUSTOKUoLGPGdwMGYzQYgL8ejFZnYHMh380ZQ9GJfK9eR713Vsm0bqeb0rJkiIrl2ElE+6Zc0g8DikwAdoIh+ncwANla47K7YnZt/MOAhgpUtsKgY3LmTibLfs7KdxanFVqQyOTueltczbF1FMMc/V/Pdlt2WmW9BASGMlbiz41No28t4HQ3+XUalbJF2Kxu6ZTJwNflRA="
     file_glob: true
     file: "*.pdf"
     skip_cleanup: true
@@ -53,7 +53,7 @@ deploy:
       tags: true
   - provider: releases
     api_key:
-      secure: NMxb33l3KDAVQ+2cTbE1HQA9J54ljry4Q6+yZiFPYAtPgAihYbf29q+o/4bfNh1YbatDFf9lbPwWCT7JmFPa/7IbvZjFr6UOHr+nSybOS96IrbujTfF7yvbzed4SfwgiZX1ufLuluNcb2TU1dmsBHthVRCw+eCnKZN9B5DWvGz2g3PKLHAp5RSWsu/BsE+TbIQSiwdG7p/v/Ag5P8BIQlPviCPEllIyzMcMWrdctYRMJuoRro3U+paq3C3Qw8RWzb7cDVKkyIThsh0iTLMNkU4gSQZTIcaS8zG+e5yo/uFBycGXfsh4KYdGkTNdSif17Hi4jK8PxgjHzQUbw9dhSFqzhu6D+2bnzdcFKd3b8gtgFpf5r8JrTBwDx4B01YaaGdM90uEOI3mkgTTh2ycDM2zYkk3od9nEsRS9tlpUPcK0cNl++oPMHIueM/RonRNo8kPI70AMKShN6wg+IJjdHZimeAaMysQg4Scqolb1Wh/cd+yqu2H5l+h90pRt6qI0+0wqGZvQ950UBDTjhSuo+wSkvYyc/ZTrf50kdWBfn5N8wayDDnMA6qgFhgr6pHbFJY3arv4FTOPTvKjGQfrhFpIwHYuaVCTzrSfTTDCTElc2vVlDePbq4f4kfqvmN/SMTmHCSIdjSMFjB9ft5Mptd54C8qz90Zi3NhwNzUfxDZfs=
+      secure: "L2P6A4W0CPFY2wDux0j0b+VHsP8MoZ7MY84n+tcTSsnBmxTSufs+2MBq7ophM4eLkk1Ug4y5ab4CgegRd0vs4FbCkGqp7viBNstX+uHak+0fDxRp7+j4ySmY+sDODY0tW79lYvKYHF4AalJ6j6d9Bh4PHEb3XOlCQV3VzZlCQJ6o5TXR3HCxXu8cgAxDbi8/KUYnSuBMRJN17+jm3FkhFEGYd4XacpCpZkKY9g/QcA38CgBH9CZLEEeQ5Xux9XovLkbMFn8a/jZW7RVddMkRIunG/hpG5PDMWYq7sQxGDDLX1DODu1VRNVVGiy3MC+uwhqgeEIUT76jjOVDsGL2/obYMN+3EIOK6ltBrG9ZOa4yrgmudV75BFYA/Vsq6UC5nxdC4507nXY/d1G/wQY0Kw6hezJNlYrmxKzaCnFbbDIYYtZl+K0zzXaRMN7RaQk8m24wS+qR5FpLcS6kG7r/TkRpqz+5qXUSTqcUSTOKUoLGPGdwMGYzQYgL8ejFZnYHMh380ZQ9GJfK9eR713Vsm0bqeb0rJkiIrl2ElE+6Zc0g8DikwAdoIh+ncwANla47K7YnZt/MOAhgpUtsKgY3LmTibLfs7KdxanFVqQyOTueltczbF1FMMc/V/Pdlt2WmW9BASGMlbiz41No28t4HQ3+XUalbJF2Kxu6ZTJwNflRA="
     file_glob: true
     file: "*.pdf"
     skip_cleanup: true
