@@ -9,6 +9,8 @@
 * Alchemist engine, architecture, and model
 * A tutorial with Alchemist
 
+Exercises are available [in a separate repository](https://github.com/AlchemistSimulator/SAPERE-incarnation-tutorial).
+
 ## License
 
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)
