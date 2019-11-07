@@ -25,6 +25,7 @@ install:
   - sudo apt-get install $(cat requirements.txt | awk '{print}' ORS=' ')
 script: ./gradlew buildLatex
 after_failure:
+  - cat *.log
   - tree
   - sudo apt-file update
   - apt-file find italian.ldf # Replace with the name of the a missing file
