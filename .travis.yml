@@ -12,8 +12,9 @@ addons:
       - texlive-fonts-recommended
       - texlive-fonts-extra
       - texlive-latex-extra
-      # For Minted
+      # Additional requirements
       - python-pygments
+      - texlive-lang-italian
       # Debug
       - tree
       - apt-file
