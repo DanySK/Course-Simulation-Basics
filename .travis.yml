@@ -10,7 +10,7 @@ addons:
       # For Minted
       - python-pygments
       # LaTeX
-      - texlive-base
+      - texlive-full
       - texlive-extra-utils
       - texlive-generic-recommended
       - texlive-latex-extra
