@@ -10,3 +10,10 @@ latex.pdf
 .ide/
 .gradle/
 *.kate-swp
+*.nav
+*.snm
+*.vrb
+??-*.yml
+.directory
+_minted*/
+Simulation.pdf

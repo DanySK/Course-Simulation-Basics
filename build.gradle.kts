@@ -3,5 +3,7 @@ plugins {
 }
 
 latex {
-    "latex"()
+    "Simulation" {
+        bib = "bib.bib"
+    }
 }
