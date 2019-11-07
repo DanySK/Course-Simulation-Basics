@@ -60,3 +60,7 @@ deploy:
     on:
       repo: *official-repo
       tags: false
+notifications:
+  email:
+    on_success: never
+    on_failure: always
