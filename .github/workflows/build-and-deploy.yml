@@ -52,7 +52,7 @@ jobs:
           tag_name: ${{ env.VERSION }}
           name: ${{ env.VERSION }}
           body_path: CHANGELOG.md
-          files: *.pdf
+          files: '*.pdf'
           fail_on_unmatched_files: true
       - shell: bash
         run: touch ok
