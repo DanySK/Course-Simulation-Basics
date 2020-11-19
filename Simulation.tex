@@ -112,7 +112,25 @@
 	\end{block}
 \end{frame}
 
-\begin{frame}{Types of computer simulation}
+\begin{frame}{Simulation and reproducibility}
+    \textbf{Reproducibility} measures the degree of agreement between two repetitions of the same experiment.
+    Related to:
+    \begin{itemize}
+        \item \textit{Repeatability}: the experiment can be executed multiple times in the same conditions
+        \item \textit{Replicability}: the experiment can be executed again in slightly different conditions
+        \item \textit{``Strict'' reproducibility}: used in computer science, is the ability to obtain the exact same output with on the exact same input data.
+    \end{itemize}
+
+    A good simulation should be \textit{repeatable} and \textit{replicable}.
+
+    A good computer simulation should be \textit{strictly reproducible}
+    \begin{itemize}
+        \item Randomness must be kept under control
+        \item Parallelism is a source of randomness too!
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Modeling time in computer simulations}
 	\begin{block}{Time-driven}
 		\begin{itemize}
 			\item Time is simulated through discrete time slots (ticks)
@@ -120,7 +138,7 @@
 			\item All the changes occurring during the same tick are considered to be simultaneous
 		\end{itemize}
 	\end{block}
-	\begin{block}{Discrete events (DES)}
+	\begin{block}{Event-driven -- Discrete events simulation (DES)}
 		\begin{itemize}
 			\item Events are simulated one by one
 			\item For every simulated event, the time is shifted forward
@@ -128,6 +146,8 @@
 		\end{itemize}
 	\end{block}
 \end{frame}
+
+\section{Building a simulator: the case of Kinetic Monte Carlo}
 
 \begin{frame}{Kinetic Monte Carlo and chemistry}
 Problem: we have a container with a precise number of molecules that may react with each other. We want to forecast the evolution of the system in future.
@@ -148,7 +168,6 @@ Problem: we have a container with a precise number of molecules that may react w
  \end{block}
 \end{frame}
 
-\section{Exact stochastic simulation of chemical systems}
 \subsection{The problem and a bit of the math behind}
 \begin{frame}{Approach the problem}
 We need to find a procedure for simulating a chemical system. The system is composed of molecules and reactions. Reactions assume the form:
@@ -597,7 +616,7 @@ From \cite{SlepoyJPC2008}
 
 
 \begin{frame}[fragile]{Movement}
-	(Complete version on the provided code)
+	(Complete version in the provided code)
 	\saperesimsize{15-move}{\tiny}
 \end{frame}
 
