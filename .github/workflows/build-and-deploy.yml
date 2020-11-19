@@ -35,7 +35,11 @@ jobs:
         shell: bash
         run: ./gradlew buildLatex
       - name: Compute Version
-        run: export VERSION=$(git describe --tags --exact-match HEAD || git describe || echo "0.1.0-$(git log -n1 --date=format:'%Y-%m-%dT%H%M%S' --format=%cd)")
+        run: |
+          VERSION=$(git describe --tags --exact-match HEAD || \
+            git describe || \
+            echo "0.1.0-$(git log -n1 --date=format:'%Y-%m-%dT%H%M%S' --format=%cd)")
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
       - name: Generate changelog
         uses: heinrichreimer/github-changelog-generator-action@v2.1.1
         with:
