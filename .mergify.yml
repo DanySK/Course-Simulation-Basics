@@ -1,1 +1,1 @@
-e
+extends: mergify-config
