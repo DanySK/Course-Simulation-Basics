@@ -1,0 +1,3 @@
+[submodule "ext/SAPERE-incarnation-tutorial"]
+	path = ext/SAPERE-incarnation-tutorial
+	url = https://github.com/AlchemistSimulator/SAPERE-incarnation-tutorial.git
