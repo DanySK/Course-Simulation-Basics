@@ -1,7 +1,6 @@
 \documentclass[presentation]{beamer}
 \listfiles
 \usepackage{isac-slides}
-\usepackage{minted}
 \usepackage{listings}
 
 \title[Simulation]{Stochastic Simulation in Alchemist}
@@ -540,12 +539,8 @@ From \cite{SlepoyJPC2008}
 	\end{itemize}
 \end{frame}
 
-\newcommand{\saperesimsize}[2]{
-    \IfFileExists{#1.yml}{}{
-        \immediate\write18{curl https://raw.githubusercontent.com/AlchemistSimulator/SAPERE-incarnation-tutorial/master/src/main/yaml/#1.yml --output #1.yml}
-    }
-    \lstinputlisting[language=yaml,basicstyle=#2,numbers=left,breaklines=true,frame=single]{#1.yml}
-%     \inputminted[fontsize=#2,linenos=true,breaklines=true, frame=single]{yaml}{#1.yml}
+\newcommand{\saperesimsize}[2]{%
+    \lstinputlisting[basicstyle=#2\ttfamily,numbers=left,frame=single]{ext/SAPERE-incarnation-tutorial/src/main/yaml/#1.yml}%
 }
 \newcommand{\saperesim}[1]{\saperesimsize{#1}{\tiny}}
 
