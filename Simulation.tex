@@ -34,13 +34,11 @@
   morestring=[b]',
   morestring=[b]",
   literate =    {---}{{\ProcessThreeDashes}}3
-                {>}{{\textcolor{red}\textgreater}}1     
-                {|}{{\textcolor{red}\textbar}}1 
+                {>}{{\textcolor{red}\textgreater}}1
+                {|}{{\textcolor{red}\textbar}}1
                 {\ -\ }{{\mdseries\ -\ }}3,
 }
 
-% switch to key style at EOL
-\lst@AddToHook{EveryLine}{\ifx\lst@language\language@yaml\YAMLkeystyle\fi}
 \makeatother
 
 \newcommand\ProcessThreeDashes{\llap{\color{cyan}\mdseries-{-}-}}
@@ -65,7 +63,7 @@
         \item Understand the limitations of classic approaches
         \item Learn a bit of Alchemist
   \end{itemize}
- \end{block} 
+ \end{block}
  \begin{block}{Methodology}
   \begin{itemize}
         \item From model checking to Monte Carlo
@@ -322,7 +320,7 @@ $$ 1 - e^{-\lambda t} = \rho \Rightarrow t = \frac{-\ln \left( 1 - \rho \right)}
    \item In case the reaction which is being updated is not the one executed but one of its dependencies, then:
    \begin{itemize}
     \item let $T$ be the current simulation time, $\tau_c$ be the new putative time, $a_c$ the new propensity, $\tau_p$ the previous putative time, $a_p$ the previous propensity.
-    \item $\tau_c = \frac{a_c \left( \tau_p-T \right)}{a_p}+T$ 
+    \item $\tau_c = \frac{a_c \left( \tau_p-T \right)}{a_p}+T$
     \item This is possible due to the exponential distribution being \emph{memory less}
     \item Note: $\forall \tau_p, T: \tau_p \geq T $
    \end{itemize}
@@ -437,7 +435,7 @@ From \cite{SlepoyJPC2008}
  \begin{block}{Challenge}
   \begin{itemize}
    \item There are more reactions: each node has its ``copy''
-   \item A reaction may affect the propensities locally, in the neighborhood, or globally 
+   \item A reaction may affect the propensities locally, in the neighborhood, or globally
    \item The fewer are the bindings between reactions, the higher is efficiency of a dependency graph
    \item We want to detect the \emph{context} of the reactions and filter the dependencies accordingly
   \end{itemize}
@@ -504,7 +502,7 @@ From \cite{SlepoyJPC2008}
 %   \centering
 %   \includegraphics[width=0.99\textwidth]{img/graph01}
 % \end{frame}
-% 
+%
 \subsection{Sapere incarnation}
 \begin{frame}{SAPERE incarnation}
  \begin{block}{Motivation}
@@ -544,7 +542,7 @@ From \cite{SlepoyJPC2008}
     \IfFileExists{#1.yml}{}{
         \immediate\write18{curl https://raw.githubusercontent.com/AlchemistSimulator/SAPERE-incarnation-tutorial/master/src/main/yaml/#1.yml --output #1.yml}
     }
-    \lstinputlisting[basicstyle=#2\ttfamily,numbers=left,breaklines=true,frame=single]{#1.yml}
+    \lstinputlisting[language=yaml,basicstyle=#2,numbers=left,breaklines=true,frame=single]{#1.yml}
 %     \inputminted[fontsize=#2,linenos=true,breaklines=true, frame=single]{yaml}{#1.yml}
 }
 \newcommand{\saperesim}[1]{\saperesimsize{#1}{\tiny}}
@@ -582,7 +580,7 @@ From \cite{SlepoyJPC2008}
 \end{frame}
 
 \begin{frame}[fragile]{Diffusion}
-	\saperesim{09-diffuse} 
+	\saperesim{09-diffuse}
 \end{frame}
 
 \begin{frame}[fragile]{Mathematical operations}
