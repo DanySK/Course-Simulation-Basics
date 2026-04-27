@@ -5,6 +5,25 @@
 
 \title[Simulation]{Stochastic Simulation in Alchemist}
 
+\lstdefinelanguage{yaml}{
+  keywords={true,false,null,y,n},
+  keywordstyle=\color{darkgray}\bfseries,
+  basicstyle=\scriptsize\ttfamily,
+  sensitive=false,
+  comment=[l]{\#},
+  commentstyle=\color{purple}\ttfamily,
+  morestring=[b]',
+  morestring=[b]",
+  stringstyle=\color{blue}\ttfamily,
+  moredelim=[l][\color{orange}]{\&},
+  moredelim=[l][\color{magenta}]{*},
+  moredelim=**[il][\color{red}]{:},
+  literate=
+    {---}{{\textcolor{cyan}{---}}}3
+    {>}{{\textcolor{red}{>}}}1
+    {|}{{\textcolor{red}{|}}}1,
+}
+
 \begin{document}
 
 \frame[label=coverpage]{\titlepage}
@@ -501,7 +520,7 @@ From \cite{SlepoyJPC2008}
 \end{frame}
 
 \newcommand{\saperesimsize}[2]{%
-    \lstinputlisting[basicstyle=#2\ttfamily,numbers=left,frame=single]{ext/SAPERE-incarnation-tutorial/src/main/yaml/#1.yml}%
+    \lstinputlisting[language=yaml,basicstyle=#2\ttfamily,numbers=left,frame=single]{ext/SAPERE-incarnation-tutorial/src/main/yaml/#1.yml}%
 }
 \newcommand{\saperesim}[1]{\saperesimsize{#1}{\tiny}}
 
