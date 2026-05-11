@@ -194,60 +194,115 @@ We want to forecast the evolution of the system in the future.
 \subsection{The problem and a bit of the math behind}
 \begin{frame}{Approach the problem}
 We need to find a procedure for simulating a chemical system. The system is composed of molecules and reactions. Reactions assume the form:
-$$A + B\xrightarrow{\mu} C$$
-where $A$ and $B$ are reactants, $\mu$ is an indication of the reaction speed and $C$ is the product.
+$$A + B\xrightarrow{k} C$$
+where $A$ and $B$ are reactants, $k$ is the reaction-rate constant, and $C$ is the product.
 
 A solution has been first proposed in \cite{GillespieJPC1977} (Gillespie algorithm or Kinetic Monte Carlo):
  \begin{enumerate}
-   \item Select next reaction using markovian rates: it supposes that a chemical system has no memory, and computes the speed of a reaction $r$ as: $a_r = [A][B]\mu$
+   \item Compute the propensity $a_r$ of each reaction.
+   For a simple bimolecular reaction between distinct species, $a_r = k[A][B]$
    \item Execute it, changing the concentrations
-   \item Update the markovian rates which may have changed
+   \item Update the propensities which may have changed
   \end{enumerate}
 \end{frame}
 
 \begin{frame}{Do the math: next reaction choice}
-If we assume every reaction is a Poisson process, the probability for it to be the next one is: \\
+\small
+\begin{block}{Meaning}
+For $\tau \geq 0$, $p(\tau,\mu)d\tau$ is the probability that:
+\begin{itemize}
+ \item no reaction fires in the interval $[0,\tau)$
+ \item reaction $\mu$ fires in the interval $[\tau,\tau + d\tau)$
+\end{itemize}
+\end{block}
+\begin{block}{Why this formula}
+ \begin{itemize}
+ \item $j$ has exponential time with rate $a_j$, so it survives up to $\tau$ with prob.: $e^{-a_j\tau}$
+ \item Independence gives $P(\text{no reaction fires before }\tau) = \prod_j e^{-a_j\tau} = e^{-a_0\tau}$
+ \item $\mu$ fires in the next infinitesimal interval $o(d\tau)$ with prob.: $a_\mu d\tau + o(d\tau)$
+\end{itemize}
+$$
+\begin{aligned}
+P\bigl(\text{next event is }\mu\text{ in }[\tau,\tau+d\tau)\bigr)
+&= e^{-a_0\tau}\bigl(a_\mu d\tau + o(d\tau)\bigr) \\
+p(\tau,\mu)
+&= \lim_{d\tau \to 0}
+\frac{P\bigl(\text{next event is }\mu\text{ in }[\tau,\tau+d\tau)\bigr)}{d\tau} \\
+&= e^{-a_0\tau}\lim_{d\tau \to 0}\left(a_\mu + \frac{o(d\tau)}{d\tau}\right)
+= a_\mu e^{-a_0\tau}
+\end{aligned}
+$$
+\end{block}
+\end{frame}
+
+\begin{frame}{Do the math: next reaction choice}
+If we assume every reaction is a Poisson process, and define $a_0 = \sum_j a_j$, the probability that reaction $\mu$ is the next one to fire is: \\
+$$
+p(\tau,\mu)
+= a_\mu e^{-a_0\tau}
+$$
 $$
 P(next = \mu)
-= \int_0^\infty P(\mu,\tau)d\tau
-= \int_0^\infty a_\mu e^{-\tau\sum_j{a_j}}d\tau
-= a_\mu \int_0^\infty  e^{-\tau\sum_j{a_j}}d\tau
+= \int_0^\infty p(\tau,\mu)d\tau
+= \int_0^\infty a_\mu e^{-a_0\tau}d\tau
+= a_\mu \int_0^\infty  e^{-a_0\tau}d\tau
 $$ \\
 $$
-= -\frac{a_\mu}{\sum_j{a_j}} [e^{-\tau\sum_j{a_j}}]_0^\infty
-= -\frac{a_\mu}{\sum_j{a_j}} (e^{-\infty} - e^{0})
-= -\frac{a_\mu}{\sum_j{a_j}} (-1)
-= \frac{a_\mu}{\sum_j{a_j}}$$
+= -\frac{a_\mu}{a_0} [e^{-a_0\tau}]_0^\infty
+= -\frac{a_\mu}{a_0} (e^{-\infty} - e^{0})
+= -\frac{a_\mu}{a_0} (-1)
+= \frac{a_\mu}{a_0}$$
 \begin{block}{Details}
  \begin{itemize}
-  \item $P(\mu,\tau) = a_\mu e^{-\tau\sum_j{a_j}}$: the probability that reaction $P$ occurs at time $\tau$ is its speed times the probability distribution. Being this a Poisson process, the probability distribution is a negative exponential function, whose exponent is the sum of the speeds of all the reactions in the system.
+  \item $p(\tau,\mu)$ is the joint density that no reaction occurs before time $\tau$ and that reaction $\mu$ fires in the next infinitesimal interval.
+  \item The exponential term comes from the waiting time of the minimum of independent exponential clocks.
  \end{itemize}
 \end{block}
 \end{frame}
 
 \begin{frame}{Do the math: next reaction time}
-We can also compute the next time of occurrence:
-$$P(\tau)d\tau = \sum_j P(\mu = j,\tau)d\tau = \left(\sum_j{a_j}\right) e^{-\tau\sum_j{a_j}}d\tau $$
-$$ \sum_j{a_j} = \lambda \longrightarrow \lambda e^{-\lambda x}$$
-$$F(x\leq t) = \int_{-\infty}^t \lambda e^{-\lambda x} dx = \int_{0}^t \lambda e^{-\lambda x} dx = \left[-e^{-\lambda t}\right]_{0}^t = 1 - e^{-\lambda t}$$
-Now, given a uniformly distributed random $\rho$ in $\left[0,1 \right]$, it is possible to compute its equivalent for the desired distribution:
-$$ 1 - e^{-\lambda t} = \rho \Rightarrow t = \frac{-\ln \left( 1 - \rho \right)}{\lambda} \equiv \frac{-\ln \left(\rho \right)}{\lambda}$$
+\small
+\begin{block}{From joint density to waiting-time density}
+$p(\tau,\mu)$ depends on both:
+\begin{itemize}
+ \item the waiting time $\tau$
+ \item the identity $\mu$ of the reaction that fires
+\end{itemize}
+If we only care about \emph{when} the next event happens, we sum over all possible reactions:
+$$p(\tau) = \sum_j p(\tau,j)$$
+$$p(\tau) = \sum_j a_j e^{-a_0\tau} = \left(\sum_j a_j\right)e^{-a_0\tau} = a_0 e^{-a_0\tau}, \quad \tau \geq 0$$
+\end{block}
+\end{frame}
+
+\begin{frame}{Do the math: next reaction time}
+\small
+\begin{block}{CDF of the waiting time}
+$F(t)$ is the cumulative distribution function of $\tau$:
+$$F(t) = P(\tau \leq t)$$
+It is the probability that \emph{some} reaction has already happened by time $t$.
+Equivalently, it is one minus the probability that \emph{no} reaction has happened up to time $t$:
+$$F(t) = \int_0^t p(\tau)\,d\tau = \int_0^t a_0 e^{-a_0 \tau} d\tau = 1 - e^{-a_0 t}, \quad t \geq 0$$
+\end{block}
+Now, given a uniformly distributed random $\rho$ in $\left(0,1\right]$, inverse transform sampling gives:
+$$ 1 - e^{-a_0 t} = \rho \Rightarrow t = \frac{-\ln \left( 1 - \rho \right)}{a_0} \equiv \frac{-\ln \left(\rho \right)}{a_0}$$
 \end{frame}
 
 \begin{frame}{Solve the problem: base algorithm}
+\small
  \begin{block}{Algorithm}
+  Here $U(0,1)$ denotes the uniform distribution on $(0,1)$.
   \begin{enumerate}
    \item Set the simulation time $T = 0$
-   \item For each reaction $r$ in the whole set of reactions $R$, compute $a_r$.
-   \item Select the next reaction $\mu$ to execute. The probability for $r$ to be executed will be $P(r = \mu) = \frac{a_r}{\sum_{(j\in R)} a_j} $
+   \item For each reaction $r \in R$, compute $a_r$, then compute $a_0 = \sum_{j \in R} a_j$.
+   \item Draw $\rho_1 \sim U(0,1)$ and select the next reaction $\mu$ so that $\sum_{j=1}^{\mu} a_j > \rho_1 a_0$.
    \item Execute the reaction, changing the concentrations.
-   \item Set the simulation time to $T = T_{prev} - \frac{\ln \left( 1 - r \right)}{\lambda}$
-   \item GOTO 2
+   \item Draw $\rho_2 \sim U(0,1)$ and advance the simulation time to $T = T_{prev} + \frac{-\ln \left( \rho_2 \right)}{a_0}$
+   \item Repeat from 2
   \end{enumerate}
  \end{block}
  \begin{block}{Data structures}
   \begin{itemize}
-   \item Choosing the next reaction to execute can be done by storing in a list like structure reactions and propensities, throwing a random number in $\left[0: \sum_{(j\in R)} a_j\right]$, and selecting the first reaction whose propensity summed to all the previous is equal or higher than the random (linear complexity in time)
+   \item Choose the next reaction with a cumulative-sum scan over the propensities: sample $\rho_2 a_0$ and select the first reaction whose cumulative propensity exceeds it (linear time).
   \end{itemize}
  \end{block}
 \end{frame}
@@ -257,7 +312,7 @@ $$ 1 - e^{-\lambda t} = \rho \Rightarrow t = \frac{-\ln \left( 1 - \rho \right)}
  \begin{block}{Algorithm}
   \begin{enumerate}
    \item The propensities must be recomputed at each step, because they depend on concentration of reactants, which may have changed.
-   \item However, not every reaction affects the speed of every other: for instance, if $A + B\xrightarrow{\mu_1} C$ executes, the propensity of $D + E\xrightarrow{\mu_2} A$ will not be affected.
+   \item However, not every reaction affects the speed of every other: for instance, if $A + B\xrightarrow{k_1} C$ executes, the propensity of $D + E\xrightarrow{k_2} F$ will not be affected.
    \item We can improve consistently the performance of the algorithm by keeping in memory which reactions influence which other, and updating only those required.
   \end{enumerate}
  \end{block}
@@ -299,18 +354,17 @@ $$ 1 - e^{-\lambda t} = \rho \Rightarrow t = \frac{-\ln \left( 1 - \rho \right)}
    \item Reducing the number of generated random numbers is key
   \end{enumerate}
  \end{block}
+ \small
  \begin{block}{Random reuse}
+  \footnotesize
   \begin{itemize}
-   \item Next reaction allows for random reuse
-   \item In case the reaction which is being updated is not the one executed but one of its dependencies, then:
-   \begin{itemize}
-    \item let $T$ be the current simulation time, $\tau_c$ be the new putative time, $a_c$ the new propensity, $\tau_p$ the previous putative time, $a_p$ the previous propensity.
-    \item $\tau_c = \frac{a_c \left( \tau_p-T \right)}{a_p}+T$
-    \item This is possible due to the exponential distribution being \emph{memory less}
-    \item Note: $\forall \tau_p, T: \tau_p \geq T $
-   \end{itemize}
+      \item The next-reaction method can reuse randomness when only propensities change.
+   \item If a dependent reaction did not fire but its propensity $a_p$ changed to $a_c$, update its putative time without drawing a new random number:
+   $$\tau_c = T + \frac{a_p}{a_c} \left( \tau_p - T \right)$$
+   where $T$ is the current simulation time, $\tau_p,\tau_c$ are the old and new putative times.
+   \item This follows from memorylessness: conditioning on survival up to $T$ leaves an exponential residual waiting time, rescaled by the new propensity.
   \end{itemize}
- \end{block}
+  \end{block}
 \end{frame}
 
 \begin{frame}{Binary heap}
@@ -319,18 +373,25 @@ $$ 1 - e^{-\lambda t} = \rho \Rightarrow t = \frac{-\ln \left( 1 - \rho \right)}
 \end{frame}
 
 \begin{frame}{Slepoy's Algorithm}
+    \small
  \begin{block}{Idea}
   \begin{itemize}
-   \item Divide the reactions in groups depending on their propensity
-   \item Define the groups in such a way that throwing a limited number of randoms the engine can select the next to execute in constant time
-   \item Updating the reactions can be done in constant time since the groups have a well defined propensity interval
-   \item If the number of groups does not depend on the number of reactions, then the algorithm is O(1).
+   \item Group reactions by propensity magnitude: $[p_{min}, 2p_{min})$, $[2p_{min}, 4p_{min})$, \dots
+   \item Select a group proportionally to its total propensity; then select a reaction inside that group with rejection sampling.
+   \begin{enumerate}
+       \tiny
+       \item Pick a candidate reaction $r$ uniformly from the group.
+       \item Draw $u \sim U(0,1)$, accept $r$ if $u < a_r / a_{max}$, where $a_{max}$ bounds all propensities in the group.
+       \item If rejected, draw a new candidate and try again.
+   \end{enumerate}
+   \item On average, rejection needs $\leq2$ trials (propensities in a group differ by at most a factor $2$)
+   \item If the number of groups $G$ stays bounded, reaction selection is $O(1)$.
   \end{itemize}
  \end{block}
  \begin{block}{Drawbacks}
   \begin{itemize}
-   \item The algorithm assumes that the number of groups does not depend on the number of reactions, namely, it supposes the propensities to change only a little during the simulation
-   \item This assumption is mostly true in real purely chemical systems, but does not hold in general
+   \item The $O(1)$ claim assumes the propensity range stays bounded.
+   \item Constant-time updates also require bounded coupling: each fired reaction should affect only $O(1)$ other propensities.
   \end{itemize}
  \end{block}
 \end{frame}
