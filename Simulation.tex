@@ -657,7 +657,13 @@ From \cite{SlepoyJPC2008}
 		\item You can implement your own classes implementing \texttt{TimeDistribution} and model arbitrary distributions
 		\item Alchemist is a discrete-event simulator: events are forced to be ordered, even if they happen at the same time.
 		\item The same syntax (a YAML map with \texttt{type} and \texttt{parameters} key) can be used to load arbitrary implementations of any simulation element
-		\item The Alchemist loader automatically assigns values to arguments of type \texttt{Environment}, \texttt{Incarnation}, \texttt{RandomGenerator}, \texttt{Node}, \texttt{Reaction}, \texttt{TimeDistribution} depending on the context, letting the user specifying only the parts strictly required.
+		\item The Alchemist loader automatically assigns values to arguments of type \texttt{Environment},
+        \texttt{Incarnation},
+        \texttt{RandomGenerator},
+        \texttt{Node},
+        \texttt{Reaction},
+        \texttt{TimeDistribution} depending on the context,
+        letting the user specify only the parts strictly required.
 	\end{itemize}
 \end{frame}
 
