@@ -518,8 +518,10 @@ From \cite{SlepoyJPC2008}
  \end{block}
  \begin{block}{Algorithms}
   \begin{itemize}
-   \item The basic Gillespie algorithm is hard to modify to support such events. The main reason is that the choice is not made depending on time, but on propensity, which is an entity strictly bound to the markovian model
-   \item The next reaction algorithm, instead, uses putative times: this makes it able to simulate events independently from their distribution, since we just need to correctly estimate the next time of occurrence.
+   \item The basic Gillespie algorithm is hard to modify to support such events.
+   The main reason is that the choice is not made depending on time, but on propensity, which is an entity strictly bound to the Markovian model
+   \item The next reaction algorithm, instead, uses putative times: this makes it able to simulate events independently from their distribution,
+   since we just need to correctly estimate the next time of occurrence.
    \begin{itemize}
     \item NOTE: the random reuse is NOT allowed for non-exponential events
    \end{itemize}
